@@ -25,8 +25,10 @@ CDN for the p5 build:
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/p5@2.2/lib/p5.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/p5.brush@2.2.4"></script>
+<script src="https://cdn.jsdelivr.net/npm/p5.brush@2.2.3"></script>
 ```
+
+The bundled docs come from the repo at v2.2.4, but npm (and so the CDN) only has up to **2.2.3** — pin 2.2.3 or newer, never 2.2.4 until it is published. Confirmed working with p5 2.2.3 in headless Chromium.
 
 ESM: `import * as brush from 'p5.brush'` (p5 build) or `import * as brush from 'p5.brush/standalone'` (standalone build).
 
