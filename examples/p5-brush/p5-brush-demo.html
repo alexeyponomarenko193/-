@@ -1,0 +1,67 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>html,body{margin:0;background:#f4eedf}</style>
+<script src="https://cdn.jsdelivr.net/npm/p5@2.2.3/lib/p5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/p5.brush@2.2.3"></script>
+</head><body>
+<script>
+function setup() {
+  createCanvas(800, 560, WEBGL)
+  pixelDensity(2)
+  angleMode(DEGREES)
+  randomSeed(7); noiseSeed(7)
+  brush.scaleBrushes(3)
+  noLoop()
+}
+
+function draw() {
+  background("#f4eedf")
+  translate(-width / 2, -height / 2)
+
+  // Watercolor sun
+  brush.noStroke()
+  brush.fill("#e8a33d", 140)
+  brush.fillBleed(0.35, "out")
+  brush.fillTexture(0.5, 0.6)
+  brush.circle(580, 150, 75, 0.4)
+
+  // Watercolor hills, back to front
+  brush.fill("#7a9e9f", 110)
+  brush.fillBleed(0.2)
+  brush.polygon([[0, 330], [140, 250], [300, 300], [470, 220], [650, 290], [800, 240], [800, 560], [0, 560]])
+  brush.fill("#3f6e5a", 130)
+  brush.polygon([[0, 420], [180, 350], [380, 410], [560, 340], [800, 400], [800, 560], [0, 560]])
+  brush.noFill()
+
+  // Charcoal ridge lines over the hills
+  brush.set("charcoal", "#2f2a26", 1.1)
+  brush.spline([[0, 420], [180, 350], [380, 410], [560, 340], [800, 400]], 0.6)
+  brush.set("HB", "#2f2a26", 0.9)
+  brush.spline([[0, 330], [140, 250], [300, 300], [470, 220], [650, 290], [800, 240]], 0.6)
+
+  // Hatched house
+  brush.set("pen", "#2f2a26", 1)
+  brush.hatchStyle("HB", "#2f2a26", 1.3)
+  brush.hatch(5, 45, { rand: 0.15 })
+  brush.rect(150, 420, 90, 70)
+  brush.hatch(4, -30, { rand: 0.15 })
+  brush.polygon([[140, 420], [195, 375], [250, 420]])
+  brush.noHatch()
+
+  // Wind: flow lines following a waves field
+  brush.field("waves")
+  brush.set("rotring", "#1f4b99", 0.7)
+  for (let i = 0; i < 14; i++) {
+    brush.flowLine(random(20, 420), random(40, 200), random(120, 260), 0)
+  }
+  brush.noField()
+
+  // Hand-drawn frame
+  brush.wiggle(1.5)
+  brush.set("2B", "#2f2a26", 1.2)
+  brush.rect(20, 20, 760, 520)
+  brush.noField()
+
+}
+</script>
+</body></html>
